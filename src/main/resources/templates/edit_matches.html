@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Edit Match Results</title>
+</head>
+<body>
+<h1>試合一覧編集</h1>
+<a href="/matches">試合一覧に戻る</a>
+<hr>
+<table border="1">
+	<tr>
+		<th>節</th>
+		<th>日付</th>
+		<th>ホーム</th>
+		<th>得点</th>
+		<th>アウェイ</th>
+		<th>編集</th>
+	</tr>
+	<tr th:each="match: ${matches}">
+		<td th:text="${match.section}"></td>
+		<td th:text="${match.date}"></td>
+		<td th:text="${match.home}"></td>
+		<td th:text="${match.goalsFor} + ' - ' + ${match.goalsAgainst}"></td>
+		<td th:text="${match.away}"></td>
+		<td>
+			<form th:action="|/match/edit/${match.id}|" method="get">
+				<input type="submit" value="編集">
+			</form>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6"><form action="/match/new" method="get">
+			<input style="width: 100%" type="submit" value="新規">
+		</form>
+	</tr>
+</table>
+</body>
+</html>

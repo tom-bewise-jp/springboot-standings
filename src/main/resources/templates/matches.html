@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Match Results</title>
+</head>
+<body>
+<h1>試合一覧</h1>
+<a href="/matches">全試合一覧</a><br>
+<form action="/matches" method="get">
+  <select name="section">
+    <option value="">すべての節</option>
+    <option th:each="sec: ${#numbers.sequence(1, 34)}" th:value="${sec}" th:text="|第${sec}節|">
+    </option>
+  </select>
+  <input type="submit" value="表示">
+</form>
+<form action="/matches" method="get">
+  <select name="month">
+    <option value="">すべての月</option>
+    <option th:each="month: ${#numbers.sequence(1, 12)}" th:value="${month}" th:text="|${month}月|">
+    </option>
+  </select>
+  <input type="submit" value="表示">
+</form>
+<form action="/matches" method="get">
+  <select name="team">
+    <option value="">すべてのチーム</option>
+    <option th:each="team: ${teams}" th:value="${team.abbr}" th:text="${team.abbr}">
+    </option>
+  </select>
+  <input type="submit" value="表示">
+</form>
+<a href="/edit_matches">試合一覧編集</a>
+<hr>
+<table border="1">
+	<tr>
+		<th>節</th>
+		<th>日付</th>
+		<th>ホーム</th>
+		<th>得点</th>
+		<th>アウェイ</th>
+	</tr>
+	<tr th:each="match: ${matches}">
+		<td th:text="${match.section}"></td>
+		<td th:text="${match.date}"></td>
+		<td th:text="${match.home}"></td>
+		<td th:text="${match.goalsFor} + ' - ' + ${match.goalsAgainst}"></td>
+		<td th:text="${match.away}"></td>
+	</tr>
+</table>
+</body>
+</html>
